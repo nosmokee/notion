@@ -1,0 +1,16 @@
+# Render Blueprint для ncodex relay: dashboard.render.com → New → Blueprint → этот репозиторий.
+# Render спросит RELAY_SECRET — вставь секрет из окна ncodex (Настройки → Туннель → Свой сервер).
+services:
+  - type: web
+    name: ncodex-relay
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: python relay.py
+    healthCheckPath: /_ncodex/ping
+    envVars:
+      - key: RELAY_SECRET
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.13.5
